@@ -9,6 +9,6 @@ namespace MobileDevWebApp.Models
         [Column("SupplierID")]
         public int SupplierID { get; set; }
         [Column("SupplierName")]
-        public string SupplierName { get; set; }
+        public string? SupplierName { get; set; }
     }
 }

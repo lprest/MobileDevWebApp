@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using MobileDevWebApp.Data;
 using MobileDevWebApp.Models;
 
 namespace MobileDevWebApp.Controllers
@@ -14,7 +13,7 @@ namespace MobileDevWebApp.Controllers
         {
             try
             {
-                using (AppDbContext db = new AppDbContext())
+                using (MyContext db = new MyContext())
                 {
                     List<Models.TeaM> Tea = db.Tea.ToList();
 
@@ -33,7 +32,7 @@ namespace MobileDevWebApp.Controllers
         {
             try
             {
-                using (AppDbContext db = new AppDbContext())
+                using (MyContext db = new MyContext())
                 {
                     TeaM model = new TeaM();
 
@@ -58,7 +57,7 @@ namespace MobileDevWebApp.Controllers
             try
             {
                 Console.WriteLine("updating the user with the id: ", id);
-                using (AppDbContext db = new AppDbContext())
+                using (MyContext db = new MyContext())
                 {
                     TeaM model = await db.Tea.FirstOrDefaultAsync(x => x.TeaID == id);
                     if (model == null)
@@ -87,7 +86,7 @@ namespace MobileDevWebApp.Controllers
         {
             try
             {
-                using (AppDbContext db = new AppDbContext())
+                using (MyContext db = new MyContext())
                 {
                     TeaM Tea = await db.Tea.FirstOrDefaultAsync(n => n.TeaID == id);
                     if (Tea != null)

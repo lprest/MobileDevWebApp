@@ -10,8 +10,8 @@ namespace MobileDevWebApp.Models
         [Column("TeaID")]
         public int TeaID { get; set; }
         [Column("TeaName")]
-        public string TeaName { get; set; }
+        public string? TeaName { get; set; }
         [Column("TeaType")]
-        public string TeaType { get; set; }
+        public string? TeaType { get; set; }
     }
 }

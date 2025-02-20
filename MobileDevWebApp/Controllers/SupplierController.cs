@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using MobileDevWebApp.Data;
 using MobileDevWebApp.Models;
 
 namespace MobileDevWebApp.Controllers
@@ -14,9 +13,9 @@ namespace MobileDevWebApp.Controllers
         {
             try
             {
-                using (AppDbContext db = new AppDbContext())
+                using (MyContext db = new MyContext())
                 {
-                    List<Models.SupplierM> Supplier = db.Supplier.ToList();
+                    List<SupplierM> Supplier = db.Supplier.ToList();
 
                     return new ObjectResult(Supplier);
                 }
@@ -33,7 +32,7 @@ namespace MobileDevWebApp.Controllers
         {
             try
             {
-                using (AppDbContext db = new AppDbContext())
+                using (MyContext db = new MyContext())
                 {
                     SupplierM model = new SupplierM();
 
@@ -57,7 +56,7 @@ namespace MobileDevWebApp.Controllers
             try
             {
                 Console.WriteLine("updating the user with the id: ", id);
-                using (AppDbContext db = new AppDbContext())
+                using (MyContext db = new MyContext())
                 {
                     SupplierM model = await db.Supplier.FirstOrDefaultAsync(x => x.SupplierID == id);
                     if (model == null)
@@ -85,7 +84,7 @@ namespace MobileDevWebApp.Controllers
         {
             try
             {
-                using (AppDbContext db = new AppDbContext())
+                using (MyContext db = new MyContext())
                 {
                     SupplierM Supplier = await db.Supplier.FirstOrDefaultAsync(n => n.SupplierID == id);
                     if (Supplier != null)

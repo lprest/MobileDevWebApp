@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using MobileDevWebApp.Data;
 using MobileDevWebApp.Models;
 
 namespace MobileDevWebApp.Controllers
@@ -14,7 +13,7 @@ namespace MobileDevWebApp.Controllers
         {
             try
             {
-                using (AppDbContext db = new AppDbContext())
+                using (MyContext db = new MyContext())
                 {
                     List<Models.InventoryM> inventory = db.Inventory.ToList();
 
@@ -29,15 +28,15 @@ namespace MobileDevWebApp.Controllers
         }
 
         [HttpPost("[action]")]
-        public async Task<IActionResult> postItem([FromBody] InventoryM value, Int64 TeaID, Int64 SupplierID)
+        public async Task<IActionResult> postItem([FromBody] InventoryM value)
         {
             try
             {
-                using (AppDbContext db = new AppDbContext())
+                using (MyContext db = new MyContext())
                 {
                     InventoryM model = new InventoryM();
-                    TeaM tea = await db.Tea.FirstOrDefaultAsync(x => x.TeaID == TeaID);
-                    SupplierM supplier = await db.Supplier.FirstOrDefaultAsync(x => x.SupplierID == SupplierID);
+                    TeaM tea = await db.Tea.FirstOrDefaultAsync(x => x.TeaID == value.TeaID) ?? new();
+                    SupplierM supplier = await db.Supplier.FirstOrDefaultAsync(x => x.SupplierID == value.SupplierID) ?? new();
 
                     if (tea == null || supplier == null)
                     {
@@ -46,6 +45,7 @@ namespace MobileDevWebApp.Controllers
                     }
                     model.SupplierID = value.SupplierID;
                     model.TeaID = value.TeaID;
+                    model.Quantity = value.Quantity;
 
                     db.Inventory.Add(model);
                     await db.SaveChangesAsync();
@@ -59,5 +59,6 @@ namespace MobileDevWebApp.Controllers
                 return BadRequest(e);
             }
         }
+
     }
 }
