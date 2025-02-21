@@ -9,7 +9,7 @@ namespace MobileDevWebApp.Models
         [Column("InventoryID")]
         public int InventoryID { get; set; }
 
-        [ForeignKey("Tea")] //Table name not column name
+        [ForeignKey("Tea")]
         [Column("TeaID")]
         public int TeaID { get; set; }
 
